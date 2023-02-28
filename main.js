@@ -29,15 +29,14 @@ window.onload = (event) => {
                     <p> ${el.Notes}</p>
                     </div>
                     </div>
-                    <button type="button" onclick = "TaskInput(${el.id})"  class="btn btn-primary" 
-                    -bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" onclick = "TaskInput(${el.id})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="edit">
                     EDIT
                     </button>
-                    <button type="button" onclick = "deletetask
-                    (${el.id})"  class="btn btn-primary">
+
+                    <button type="button" onclick = "deleteTask(${el.id})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="edit">
                     DELETE
                     </button>
-                  </div>
+                </div>
                 </div>
               </div>
                 `
@@ -97,13 +96,15 @@ window.onload = (event) => {
     </div>
     </div>
 
-    <button type="button" onclick = {TaskInput(${el.id})}  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    </div>
+    <button type="button" onclick = "TaskInput(${el.id})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="edit">
     EDIT
     </button>
 
-    <button type="button" onclick = "deleteTask(${el.id})"  class="btn btn-primary">
+    <button type="button" onclick = "deleteTask(${el.id})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="edit">
     DELETE
     </button>
+
     </div>
     </div>
   </div>
@@ -116,12 +117,12 @@ window.onload = (event) => {
 function createTask() {
     let httpmethod = ""
     let url = ""
-    if (selectedtask == {}) {
+    if (Object.keys(selectedtask).length==0) {
         httpmethod = "POST"
         url = "https://63eca9a132a08117239f4c48.mockapi.io/todos/"
     } else {
         httpmethod = "PUT"
-        url = `https://63eca9a132a08117239f4c48.mockapi.io/todos${selectedtask.id}`
+        url = `https://63eca9a132a08117239f4c48.mockapi.io/todos/${selectedtask.id}`
     }
     let title = document.getElementById('title').value
     let description = document.getElementById('description').value
@@ -147,6 +148,8 @@ function createTask() {
             console.log(data)
         })
         .catch(error => console.log(error))
+
+    selectedtask={}
 }
 
 
