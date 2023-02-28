@@ -114,7 +114,9 @@ window.onload = (event) => {
 };
 
 
+
 function createTask() {
+    spinner()
     let httpmethod = ""
     let url = ""
     if (Object.keys(selectedtask).length==0) {
@@ -137,13 +139,15 @@ function createTask() {
         Notes: notes,
         Thumbnail: thumbnail,
     }
-        fetch(url, {
-            method: httpmethod,
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(create)
+
+    fetch(url, {
+        method: httpmethod,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(create)
     })
     .then(response => response.json())
         .then(data => {
+            
             window.location.reload()
             console.log(data)
         })
@@ -162,7 +166,6 @@ function TaskInput(TASKID) {
 
     document.getElementById('staticBackdropLabel').innerHTML = selectedtask.title
 
-    
     document.getElementById('title').value = selectedtask.title
     document.getElementById('description').value = selectedtask.description
     document.getElementById('timetaken').value = selectedtask.timetaken
@@ -179,4 +182,9 @@ function deleteTask(TASKID) {
         .then(response => { response.json(), window.location.reload() })
         .catch(error => console.log(error))
 }
-
+function spinner() {
+    document.getElementsByClassName("loader")[0].style.display = "block";
+}
+function spinnerclose() {
+    document.getElementsByClassName("loader")[0].style.display = "none";
+}
